@@ -9,92 +9,112 @@ using MVC_EF_Start.Models;
 
 namespace MVC_EF_Start.Controllers
 {
-  public class DatabaseExampleController : Controller
-  {
-    public ApplicationDbContext dbContext;
-
-    public DatabaseExampleController(ApplicationDbContext context)
+    public class DatabaseExampleController : Controller
     {
-      dbContext = context;
-    }
+        public ApplicationDbContext dbContext;
 
-    public IActionResult Index()
-    {
-      return View();
-    }
+        public DatabaseExampleController(ApplicationDbContext context)
+        {
+            dbContext = context;
+        }
 
-    public async Task<ViewResult> DatabaseOperations()
-    {
-      // CREATE operation
-      Company MyCompany = new Company();
-      MyCompany.symbol = "MCOB";
-      MyCompany.name = "ISM";
-      MyCompany.date = "ISM";
-      MyCompany.isEnabled = true;
-      MyCompany.type = "ISM";
-      MyCompany.iexId = "ISM";
+        public IActionResult Index()
+        {
+            return View();
+        }
 
-      Quote MyCompanyQuote1 = new Quote();
-      //MyCompanyQuote1.EquityId = 123;
-      MyCompanyQuote1.date = "11-23-2018";
-      MyCompanyQuote1.open = 46.13F;
-      MyCompanyQuote1.high = 47.18F;
-      MyCompanyQuote1.low = 44.67F;
-      MyCompanyQuote1.close = 47.01F;
-      MyCompanyQuote1.volume = 37654000;
-      MyCompanyQuote1.unadjustedVolume = 37654000;
-      MyCompanyQuote1.change = 1.43F;
-      MyCompanyQuote1.changePercent = 0.03F;
-      MyCompanyQuote1.vwap = 9.76F;
-      MyCompanyQuote1.label = "Nov 23";
-      MyCompanyQuote1.changeOverTime = 0.56F;
-      MyCompanyQuote1.symbol = "MCOB";
+        public async Task<ViewResult> DatabaseOperations()
+        {
+            // CREATE operation
+            Company MyCompany = new Company();
+            MyCompany.symbol = "MCOB";
+            MyCompany.name = "ISM";
+            MyCompany.date = "ISM";
+            MyCompany.isEnabled = true;
+            MyCompany.type = "ISM";
+            MyCompany.iexId = "ISM";
 
-      Quote MyCompanyQuote2 = new Quote();
-      //MyCompanyQuote1.EquityId = 123;
-      MyCompanyQuote2.date = "11-23-2018";
-      MyCompanyQuote2.open = 46.13F;
-      MyCompanyQuote2.high = 47.18F;
-      MyCompanyQuote2.low = 44.67F;
-      MyCompanyQuote2.close = 47.01F;
-      MyCompanyQuote2.volume = 37654000;
-      MyCompanyQuote2.unadjustedVolume = 37654000;
-      MyCompanyQuote2.change = 1.43F;
-      MyCompanyQuote2.changePercent = 0.03F;
-      MyCompanyQuote2.vwap = 9.76F;
-      MyCompanyQuote2.label = "Nov 23";
-      MyCompanyQuote2.changeOverTime = 0.56F;
-      MyCompanyQuote2.symbol = "MCOB";
+            Quote MyCompanyQuote1 = new Quote();
+            //MyCompanyQuote1.EquityId = 123;
+            MyCompanyQuote1.date = "11-23-2018";
+            MyCompanyQuote1.open = 46.13F;
+            MyCompanyQuote1.high = 47.18F;
+            MyCompanyQuote1.low = 44.67F;
+            MyCompanyQuote1.close = 47.01F;
+            MyCompanyQuote1.volume = 37654000;
+            MyCompanyQuote1.unadjustedVolume = 37654000;
+            MyCompanyQuote1.change = 1.43F;
+            MyCompanyQuote1.changePercent = 0.03F;
+            MyCompanyQuote1.vwap = 9.76F;
+            MyCompanyQuote1.label = "Nov 23";
+            MyCompanyQuote1.changeOverTime = 0.56F;
+            MyCompanyQuote1.symbol = "MCOB";
 
-      dbContext.Companies.Add(MyCompany);
-      dbContext.Quotes.Add(MyCompanyQuote1);
-      dbContext.Quotes.Add(MyCompanyQuote2);
+            Quote MyCompanyQuote2 = new Quote();
+            //MyCompanyQuote1.EquityId = 123;
+            MyCompanyQuote2.date = "11-23-2018";
+            MyCompanyQuote2.open = 46.13F;
+            MyCompanyQuote2.high = 47.18F;
+            MyCompanyQuote2.low = 44.67F;
+            MyCompanyQuote2.close = 47.01F;
+            MyCompanyQuote2.volume = 37654000;
+            MyCompanyQuote2.unadjustedVolume = 37654000;
+            MyCompanyQuote2.change = 1.43F;
+            MyCompanyQuote2.changePercent = 0.03F;
+            MyCompanyQuote2.vwap = 9.76F;
+            MyCompanyQuote2.label = "Nov 23";
+            MyCompanyQuote2.changeOverTime = 0.56F;
+            MyCompanyQuote2.symbol = "MCOB";
 
-      dbContext.SaveChanges();
-      
-      // READ operation
-      Company CompanyRead1 = dbContext.Companies
-                              .Where(c => c.symbol == "MCOB")
-                              .First();
 
-      Company CompanyRead2 = dbContext.Companies
-                              .Include(c => c.Quotes)
-                              .Where(c => c.symbol == "MCOB")
-                              .First();
+            Student newstudent = new Student();
+            newstudent.Id = 1;
+            newstudent.Name = "Harry Potter";
 
-      // UPDATE operation
-      CompanyRead1.iexId = "MCOB";
-      dbContext.Companies.Update(CompanyRead1);
-      //dbContext.SaveChanges();
-      await dbContext.SaveChangesAsync();
-      
-      // DELETE operation
-      //dbContext.Companies.Remove(CompanyRead1);
-      //await dbContext.SaveChangesAsync();
+            Course newcourse = new Course();
+            newcourse.Id = 10;
+            newcourse.Name = "Potions";
 
-      return View();
-    }
+            Enrolment newenrolment = new Enrolment();
+            newenrolment.Id = 1;
+            newenrolment.course = newcourse;
+            newenrolment.student = newstudent;
+            newenrolment.grade = "A";
 
+
+            dbContext.Companies.Add(MyCompany);
+            dbContext.Quotes.Add(MyCompanyQuote1);
+            dbContext.Quotes.Add(MyCompanyQuote2);
+            dbContext.Students.Add(newstudent);
+            dbContext.Courses.Add(newcourse);
+            dbContext.Enrolments.Add(newenrolment);
+
+
+            dbContext.SaveChanges();
+
+            // READ operation
+            Company CompanyRead1 = dbContext.Companies
+                                    .Where(c => c.symbol == "MCOB")
+                                    .First();
+
+            Company CompanyRead2 = dbContext.Companies
+                                    .Include(c => c.Quotes)
+                                    .Where(c => c.symbol == "MCOB")
+                                    .First();
+
+            // UPDATE operation
+            //CompanyRead1.iexId = "MCOB";
+            //dbContext.Companies.Update(CompanyRead1);
+            //dbContext.SaveChanges();
+            //await dbContext.SaveChangesAsync();
+
+            // DELETE operation
+            dbContext.Companies.Remove(CompanyRead1);
+            await dbContext.SaveChangesAsync();
+
+            return View();
+        }
+    
     public ViewResult LINQOperations()
     {
       Company CompanyRead1 = dbContext.Companies
@@ -118,3 +138,4 @@ namespace MVC_EF_Start.Controllers
 
   }
 }
+
