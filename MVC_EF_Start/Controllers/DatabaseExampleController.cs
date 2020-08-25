@@ -115,27 +115,25 @@ namespace MVC_EF_Start.Controllers
             return View();
         }
     
-    public ViewResult LINQOperations()
-    {
-      Company CompanyRead1 = dbContext.Companies
-                                      .Where(c => c.symbol == "MCOB")
-                                      .First();
+    
+            public ViewResult LINQOperations()
+            {
+                Course CourseRead1 = dbContext.Courses
+                                                .Where(c => c.Name == "Potions")
+                                                .First();
 
-      Company CompanyRead2 = dbContext.Companies
-                                      .Include(c => c.Quotes)
-                                      .Where(c => c.symbol == "MCOB")
-                                      .First();
+                Course CourseRead2 = dbContext.Courses
+                                                .Include(c => c.enrolments)
+                                                .Where(c => c.Id == 10)
+                                                .First();
 
-      Quote Quote1 = dbContext.Companies
-                              .Include(c => c.Quotes)
-                              .Where(c => c.symbol == "MCOB")
-                              .FirstOrDefault()
-                              .Quotes
-                              .FirstOrDefault();
 
-      return View();
-    }
+                return View();
+            }
+
+
+             }
 
   }
-}
+
 
